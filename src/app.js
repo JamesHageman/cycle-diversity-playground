@@ -1,21 +1,37 @@
-import 'es6-shim' // suppport more browsers
-// External imports
+// import 'es6-shim'
+import 'normalize-css'
+import xs from 'xstream'
 import Cycle from '@cycle/xstream-run'
 import {makeDOMDriver} from '@cycle/dom'
-import {makeRouterDriver, supportsHistory} from 'cyclic-router'
-import {createHistory, createHashHistory} from 'history'
 
-// Local imports
-import main from 'page/main'
+import StoryBoard from './story-board'
 
-const history = supportsHistory()
-  ? [createHistory(), {capture: true}]
-  : [createHashHistory(), {capture: false}]
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  api: (api$) => {
+    return api$
+      .map(({ method, args }) => xs.fromPromise(method(...(args || []))))
+      .flatten()
+  },
+  preventDefault: (event$) => {
+    event$.addListener({
+      next: e => {
+        e.preventDefault()
+      },
+      error: err => console.error(err),
+      complete: () => {}
+    })
 
-const drivers =
-  {
-    DOM: makeDOMDriver('#app', {transposition: false}),
-    router: makeRouterDriver(...history)
+    return {}
+  },
+  debug: (any$) => {
+    any$.addListener({
+      next: x => console.log(x),
+      error: err => console.log(err),
+      complete: () => {}
+    })
+    return {}
   }
+}
 
-Cycle.run(main, drivers)
+Cycle.run(StoryBoard, drivers)

@@ -46,9 +46,10 @@
     "@cycle/xstream-run": "^1.1.0",
     "cyclic-router": "^2.0.0",
     "es6-shim": "^0.35.1",
+    "form-serialize": "^0.7.1",
     "normalize-css": "^2.3.1",
     "ramda": "^0.21.0",
-    "xstream": "^3.0.0"
+    "xstream": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

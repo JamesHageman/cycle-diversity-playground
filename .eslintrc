@@ -2,6 +2,8 @@
   "extends": "eslint-config-standard",
   "rules": {
     "padded-blocks": 0,
-    "brace-style": 0
+    "brace-style": 0,
+    "no-unused-vars": 1,
+    "no-debugger": 1
   }
 }
