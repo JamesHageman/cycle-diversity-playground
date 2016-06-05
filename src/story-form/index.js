@@ -19,8 +19,10 @@ const validate = (data) => {
   return ret
 }
 
-const isValidSubmit = ({ data, validations }) =>
-  data.isDirty && R.keys(validations).length === 0
+const isValidSubmit = R.where({
+  data: R.propEq('isDirty', true),
+  validations: R.pipe(R.keys, R.length, R.equals(0))
+})
 
 const StoryForm = (sources) => {
   const defaultData = {

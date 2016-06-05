@@ -19,7 +19,8 @@ const MOCK_BUCKETS = {
     1: {
       name: 'Learn xstream'
     }
-  }
+  },
+  bucketOrder: [ 0, 1 ]
 }
 
 export const buckets = () => {
